@@ -8,12 +8,14 @@
 
 ![予約](https://github.com/Kohei33/SeatBooking_Python/assets/63783758/5ef2b6c4-473c-4f2e-b7e9-7bdb43b2c43d)
 
-- 予約は30日後まで可能。過去60日までの予約状況を確認可能。
 - 日付ごとにメモ登録可能。
 
 ![メモ登録](https://github.com/Kohei33/SeatBooking_Python/assets/63783758/881febd7-78cc-495c-9d7e-763dcb368d89)
 
 - マイページで自分の予約情報とメモを管理。
+
+![マイページ](https://github.com/Kohei33/SeatBooking_Python/assets/63783758/7babdd14-a59e-406a-9def-88ae1f19d90a)
+
 ## 開発環境
 - 開発環境はdocker-compose.dev.ymlを使ってビルドする
 - `docker-compose -f docker-compose.dev.yml up -d --build`
