@@ -10,6 +10,9 @@
 
 - 予約は30日後まで可能。過去60日までの予約状況を確認可能。
 - 日付ごとにメモ登録可能。
+
+![メモ登録](https://github.com/Kohei33/SeatBooking_Python/assets/63783758/881febd7-78cc-495c-9d7e-763dcb368d89)
+
 - マイページで自分の予約情報とメモを管理。
 ## 開発環境
 - 開発環境はdocker-compose.dev.ymlを使ってビルドする
