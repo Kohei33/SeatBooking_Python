@@ -1,0 +1,11 @@
+DIR_1 = "before"
+DIR_2 = "future"
+MYPAGE_TITLE_1 = 'MyPage'
+MYPAGE_TITLE_2 = '予約一覧'
+MYPAGE_TITLE_3 = 'メモ一覧'
+MYPAGE_LABEL_1 = '過去のデータを表示する'
+MYPAGE_LABEL_2 = '過去のデータを表示しない'
+MYPAGE_MESSAGE_1 = 'データはありません'
+MYPAGE_LABEL_DEL = '選択したデータを取り消す'
+ERROR_1 = '入れ違いで予約がありました。'
+ERROR_2 = '入れ違いで削除されました。'

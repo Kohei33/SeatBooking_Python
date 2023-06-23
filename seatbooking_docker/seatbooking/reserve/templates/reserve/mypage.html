@@ -1,0 +1,55 @@
+{% extends 'reserve/base.html' %}
+
+{% block content %}
+    <h1>{{ mypage_title_1 }}</h1>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6">
+                <h2>{{ mypage_title_2 }}</h2>
+                <button onclick="location.href='{% url 'reserve:mypage' seat_past memo_past 'seat' %}'">{{btnlabel_seat}}</button>
+                <form action="{% url 'reserve:mypage' seat_past memo_past 'seat' %}" method="POST">
+                {% csrf_token %}
+                    <input type="hidden" name="seat_or_memo" value="seat">
+                    <ul class="mypagelist">
+                        {% for schedule in schedule_list %}
+                            <li>
+                                {% if schedule.1  %}<!--未来日の場合-->
+                                    <input type="checkbox" name="checks_del" value="{{ schedule }}">
+                                {% else %}
+                                    ■ 
+                                {% endif %}
+                                {{ schedule.0.date | date:"Y-m-j(D)" }} seat {{ schedule.0.seat }}
+                            </li>
+                        {% empty %}
+                            <li>{{ mymessages.0 }}</li>
+                        {% endfor %}
+                    </ul>
+                    <button type="submit">{{ btnlabel_del }}</button>
+                </form>
+            </div>
+            <div class="col-6">
+                <h2>{{ mypage_title_3 }}</h2>
+                <button onclick="location.href='{% url 'reserve:mypage' seat_past memo_past 'memo' %}'">{{btnlabel_memo}}</button>
+                <form action="{% url 'reserve:mypage' seat_past memo_past 'memo' %}" method="POST">
+                {% csrf_token %}
+                    <input type="hidden" name="seat_or_memo" value="memo">
+                    <ul class="mypagelist">
+                        {% for memo in memo_list %}
+                            <li>
+                                {% if memo.1  %}<!--未来日の場合-->
+                                    <input type="checkbox" name="checks_del" value="{{ memo }}">
+                                {% else %}
+                                    ■ 
+                                {% endif %}
+                                {{ memo.0.date | date:"Y-m-j(D)" }} {{ memo.0.title }}
+                            </li>
+                        {% empty %}
+                            <li>{{ mymessages.1 }}</li>
+                        {% endfor %}
+                    </ul>
+                    <button type="submit">{{ btnlabel_del }}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+{% endblock %}

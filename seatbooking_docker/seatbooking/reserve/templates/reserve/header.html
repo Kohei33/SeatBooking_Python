@@ -1,0 +1,11 @@
+<header class="container-fluid">
+  <nav class="navbar p-0" style="background-color: #e3f2fd;">  
+    <ul class="nav">
+      <li class="nav-item"><a href="{% url 'reserve:multi_choice' %}" class="nav-link">Home</a></li>
+      <li class="nav-item"><a href="{% url 'reserve:mypage' 'seat_past_false' 'memo_past_false' 'not' %}" class="nav-link">MyPage</a></li>
+      <li class="nav-item"><a href="{% url 'reserve:logout' %}" class="nav-link">Logout</a></li>
+      <li class="nav-item"><a href="{% url 'reserve:seat_layout' %}" class="nav-link">SeatLayout</a></li>
+      <li class="navbar-text">ログインユーザ：{{ user.username }}</li>
+    </ul>
+  </nav>
+</header>

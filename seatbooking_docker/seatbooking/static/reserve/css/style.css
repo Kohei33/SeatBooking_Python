@@ -1,0 +1,42 @@
+        body {
+            margin: 0;
+        }
+
+        nav > a {
+            margin-right: 10px;
+        }
+
+        th, td {
+            border: 1px solid; text-align: center;
+        }
+
+        .tabletitle {
+            display: table; font-weight:bold;
+        }
+        .multi {
+            display: table-cell; text-align: center; width: 100px;
+        }
+        .today {
+            background-color: #CCFFFF;
+        }
+        .holiday {
+            background-color: #CCCCCC;
+        }
+        .not_holiday {
+            background-color: white;
+        }
+        .not_available {
+            background-color: #CCCCCC;
+        }
+        .mypagelist {
+            list-style: none; padding-left:0;
+        }
+        .memotabledata {
+            text-align: left;
+        }
+        .memolist {
+            list-style: none; padding-left:0;
+        }
+        .seatcolumn {
+            width: 9%;
+        }

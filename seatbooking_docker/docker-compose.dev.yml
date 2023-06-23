@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+  web:
+    build:
+      context: ./seatbooking
+      dockerfile: Dockerfile.dev
+    command: sh -c "/code/entrypoint.sh"
+    ports:
+      - 8000:8000
+    env_file:
+      - ./.env.dev

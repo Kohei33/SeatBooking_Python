@@ -1,0 +1,6 @@
+{% extends 'reserve/base.html' %}
+{% block content %}
+<h1>このページは利用できません</h1>
+<p>アクセスできないURLか、ページが削除されています。</p>
+<a href="{{request.META.HTTP_REFERER}}">戻る</a>
+{% endblock %}

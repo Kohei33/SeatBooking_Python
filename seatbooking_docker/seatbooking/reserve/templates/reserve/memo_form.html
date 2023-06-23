@@ -1,0 +1,17 @@
+{% extends 'reserve/base.html' %}
+
+{% load widget_tweaks %}
+{% block content %}
+  <div class="container-fluid" style="max-width:700px;">
+    <form action="" method="POST">
+      {% csrf_token %}
+      日付*{{ form.date | add_class:"form-control" }}<br>
+      {{ form.user.as_hidden }}
+      タイトル*{{ form.title | add_class:"form-control" }}<br>
+      席{{ form.seat | add_class:"form-control" }}<br>
+      内容{{ form.text | add_class:"form-control" }}<br>
+      <button class="btn btn-primary" type="submit">保存</button>
+    </form>
+    <a href="{{request.META.HTTP_REFERER}}">戻る</a>
+  </div>
+{% endblock %}

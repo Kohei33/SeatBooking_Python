@@ -1,0 +1,103 @@
+{% extends 'reserve/base.html' %}
+{% block content %}
+<div class="container-fluid">
+    <h1>座席予約</h1>
+    <nav class="navbar p-0">
+        <ul class="nav" style="background-color: #f5f5f5;">
+            <li class="nav-item" style="width:60px;">
+                <a class="nav-link" href="{% url 'reserve:multi_choice' start_date dir1 %}">前</a>
+            </li>
+            <li class="navbar-text" style="width:220px;">
+                {{ start_date }} - {{ end_date }}
+            </li>
+            <li class="nav-item" style="width:50px;">
+                <a class="nav-link" href="{% url 'reserve:multi_choice' start_date dir2 %}">後</a>
+            </li>
+        </ul>
+    </nav>
+    <form action="" method="POST">
+    {% csrf_token %}
+        <table class="table-bordered border-dark" style="table-layout:fixed;margin-bottom:5px">
+            <tr>
+                <th class="seatcolumn" style="width:115px;text-align:center">席</th>
+                <!--当日、休日に背景色をつける-->
+                {% for day, isHoliday in days_isHoliday %}
+                    {% if day == today %}
+                        <th class="today" style="width:115px;text-align:center">{{ day | date:"d(D)" }}</th>
+                    {% elif isHoliday %}
+                        <th class="holiday" style="width:115px;text-align:center">{{ day | date:"d(D)" }}</th>
+                    {% else %}
+                        <th class="not_holiday" style="width:115px;text-align:center">{{ day | date:"d(D)" }}</th>
+                    {% endif %}
+                {% endfor %}
+            </tr>
+            {% for seat, days_if_enable in seats_days %}<!--席ごとのリスト(1次元目)の分試行を回す-->
+            <tr>
+                <th style="text-align:center">席{{ seat.name }}</th>
+                {% for day_if_enable in days_if_enable %}<!--日付ごとのリスト(2次元目)の分試行を回す-->
+                    <td>
+                        {% if day_if_enable.1 %}<!--予約可の場合はチェックボックスを表示する-->
+                            <input type="checkbox" name="checks" value="{{ seat.pk }}&{{ day_if_enable }}">
+                        {% else %}<!--予約不可の場合は予約者または×を表示する-->
+                            <div class="not_available">{{ day_if_enable.2 }}</div>
+                        {% endif %}
+                    </td>
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit">選択した日を予約する</button>
+    </form>
+    <br>
+    <h3>メモ</h3>日付をクリックしてメモ登録↓
+    <table class="table-bordered border-dark" style="table-layout:fixed;">
+        <tr>
+            <th style="width:115px;text-align:center">ユーザ</th>
+            <!--当日、休日に背景色をつける-->
+            {% for day, isHoliday in days_isHoliday %}
+                {% if day == today %}
+                    <th class="today" style="width:115px;text-align:center">
+                        <a href="{% url 'reserve:memo_form' day %}">
+                            {{ day | date:"d(D)" }}
+                        </a>
+                    </th>
+                {% elif isHoliday %}
+                    <th class="holiday" style="width:115px;text-align:center">
+                        {% if day >= today %}
+                            <a href="{% url 'reserve:memo_form' day %}">
+                                {{ day | date:"d(D)" }}
+                            </a>
+                        {% else %}
+                            {{ day | date:"d(D)" }}
+                        {% endif %}
+                    </th>
+                {% else %}
+                    <th class="not_holiday" style="width:115px;text-align:center">
+                        {% if day >= today %}
+                            <a href="{% url 'reserve:memo_form' day %}">
+                                {{ day | date:"d(D)" }}
+                            </a>
+                        {% else %}
+                            {{ day | date:"d(D)" }}
+                        {% endif %}
+                    </th>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% for user, user_days_memos in users_days_memos %}<!--ユーザごとのリスト(1次元目)の分試行を回す-->
+            <tr>
+                <th style="text-align:center">{{ user }}</th>
+                    {% for day, user_day_memos in user_days_memos %}<!--日付ごとのリスト(2次元目)の分試行を回す-->
+                        <td class="memotabledata">
+                            <ul class="memolist">
+                                {% for memos in user_day_memos %}<!--メモごとのリスト(3次元目)の分試行を回す-->
+                                        <li>・<a href="{% url 'reserve:memo_detail' memos.0 %}" style="font-size:10.5pt">{{ memos.1 }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </td>
+                    {% endfor %}
+            </tr>
+        {% endfor %}
+    </table>
+</div>
+{% endblock %}

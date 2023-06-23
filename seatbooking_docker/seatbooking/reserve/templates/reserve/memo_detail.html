@@ -1,0 +1,57 @@
+{% extends 'reserve/base.html' %}
+{% block content %}
+    <h2>メモ詳細</h2>
+    <div class="container-fluid" >
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label for="userlabel" class="col-form-label">ユーザ：</label>
+            </div>
+            <div class="col-auto">
+                <label id="userlabel" class="form-control">{{ memo_detail.user }}</label>
+            </div>
+        </div>
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label for="datelabel" class="col-form-label">日付：</label>
+            </div>
+            <div class="col-auto">
+                <label id="datelabel" class="form-control">{{ memo_detail.date | date:"Y-m-d(D)" }}</label>
+            </div>
+        </div>
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label for="titlelabel" class="col-form-label">タイトル：</label>
+            </div>
+            <div class="col-auto">
+                <label id="titlelabel" class="form-control">{{ memo_detail.title }}</label>
+            </div>
+        </div>
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label for="seatlabel" class="col-form-label">席：</label>
+            </div>
+            <div class="col-auto">
+                <label id="seatlabel" class="form-control">{{ memo_detail.seat }}</label>
+            </div>
+        </div>
+        <div class="row g-3 align-items-center">
+            <div class="col-auto">
+                <label for="contentlabel" class="col-form-label">内容：</label>
+            </div>
+            <div class="col-auto">
+                <label id="contentlabel" class="form-control">{{ memo_detail.text }}</label>
+            </div>
+        </div>
+    </div>
+    <a href="{{request.META.HTTP_REFERER}}">戻る</a>
+    {% if login_user == memo_detail.user %}
+        <form action="{% url 'reserve:memo_detail' memo_detail.pk %}" method="POST">
+        {% csrf_token %}
+        <button type="submit">削除する</button>
+        </form>
+        <form action="{% url 'reserve:memo_update' memo_detail.pk %}" method="GET">
+        {% csrf_token %}
+        <button type="submit">編集する</button>
+        </form>
+    {% endif %}
+{% endblock %}
